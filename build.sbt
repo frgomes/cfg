@@ -2,25 +2,25 @@ organization := "com.github.carueda"
 name := "cfg"
 version := "0.3.0"
 
-scalaVersion in ThisBuild := "2.12.2"
+scalaVersion in ThisBuild := "2.12.4"
 
-//crossScalaVersions := Seq("2.11.11", "2.12.2")
+//crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 lazy val metaMacroSettings: Seq[Def.Setting[_]] = Seq(
   // New-style macro annotations are under active development.  As a result, in
   // this build we'll be referring to snapshot versions of both scala.meta and
   // macro paradise.
   resolvers += Resolver.sonatypeRepo("releases"),
-  resolvers += Resolver.bintrayIvyRepo("scalameta", "maven"),
+  //XXX--- resolvers += Resolver.bintrayIvyRepo("scalameta", "maven"),
   // A dependency on macro paradise 3.x is required to both write and expand
   // new-style macros.  This is similar to how it works for old-style macro
   // annotations and a dependency on macro paradise 2.x.
-  addCompilerPlugin("org.scalameta" % "paradise" % "3.0.0-M8" cross CrossVersion.full),
-  scalacOptions += "-Xplugin-require:macroparadise",
+  //XXX---  addCompilerPlugin("org.scalameta" % "paradise" % "3.4.0" cross CrossVersion.full),
+  //XXX--- scalacOptions += "-Xplugin-require:macroparadise",
   // temporary workaround for https://github.com/scalameta/paradise/issues/10
-  scalacOptions in (Compile, console) := Seq(), // macroparadise plugin doesn't work in repl yet.
+  //XXX--- scalacOptions in (Compile, console) := Seq(), // macroparadise plugin doesn't work in repl yet.
   // temporary workaround for https://github.com/scalameta/paradise/issues/55
-  sources in (Compile, doc) := Nil // macroparadise doesn't work with scaladoc yet.
+  //XXX--- sources in (Compile, doc) := Nil // macroparadise doesn't work with scaladoc yet.
 )
 
 metaMacroSettings
@@ -31,12 +31,13 @@ metaMacroSettings
 libraryDependencies += "org.scalameta" %% "scalameta" % "1.8.0"
 
 libraryDependencies ++= Seq(
-  "com.typesafe"    %   "config"        %  "1.3.1",
-  "com.lihaoyi"    %%   "utest"         %  "0.4.5"  % "test"
+  "org.scalameta"  %%   "scalameta"     %  "3.4.0",
+  "com.typesafe"    %   "config"        %  "1.3.3",
+  "com.lihaoyi"    %%   "utest"         %  "0.6.3"  % "test",
 )
 testFrameworks += new TestFramework("utest.runner.Framework")
 
-
+/*
 publishMavenStyle := true
 publishArtifact in Test := false
 publishTo := {
@@ -60,6 +61,7 @@ pomExtra :=
   </developers>;
 
 sonatypeProfileName := "com.github.carueda"
+*/
 
 scalacOptions ++= Seq(
   "-deprecation",
